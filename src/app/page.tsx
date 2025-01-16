@@ -1,3 +1,4 @@
+import BackgroundTransition from "@/components/background-color";
 import {
   Card,
   CardContent,
@@ -51,7 +52,7 @@ export default async function Home() {
   const date = new Date(climate?.data.current.time);
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-gradient-to-br from-blue-300 to-blue-600 p-4">
+    <div className="flex min-h-screen items-center justify-center p-4">
       <Card className="w-full max-w-4xl">
         <CardHeader>
           <CardTitle>
@@ -114,6 +115,10 @@ export default async function Home() {
           </div>
         </CardContent>
       </Card>
+      <BackgroundTransition
+        sunrise={climate?.data.daily.sunrise}
+        sunset={climate?.data.daily.sunset}
+      />
     </div>
   );
 }

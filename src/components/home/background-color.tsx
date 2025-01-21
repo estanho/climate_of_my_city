@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 
-export default function BackgroundTransition({
+export function BackgroundTransition({
   sunrise,
   sunset,
 }: {
@@ -23,13 +23,13 @@ export default function BackgroundTransition({
     const sunsetMinutes = parseTimeToMinutes(sunset);
 
     const sunriseStart = sunriseMinutes;
-    const sunriseEnd = sunriseMinutes + 30;
+    const sunriseEnd = sunriseMinutes - 30;
     const sunsetStart = sunsetMinutes;
-    const sunsetEnd = sunsetMinutes + 30;
+    const sunsetEnd = sunsetMinutes - 30;
 
-    if (minutes >= sunriseStart && minutes < sunriseEnd) {
+    if (minutes >= sunriseEnd && minutes < sunriseStart) {
       setBackgroundClass("bg-gradient-to-b from-gray-700 to-blue-400");
-    } else if (minutes >= sunsetStart && minutes < sunsetEnd) {
+    } else if (minutes >= sunsetEnd && minutes < sunsetStart) {
       setBackgroundClass("bg-gradient-to-b from-blue-400 to-orange-500");
     } else if (minutes >= sunriseEnd && minutes < sunsetStart) {
       setBackgroundClass("bg-blue-400");

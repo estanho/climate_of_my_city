@@ -1,5 +1,7 @@
-export async function getClimate() {
-  const reponse = await fetch(process.env.OPEN_METEO_URL, {
+import { climateSchema, climateType } from "@/types/climate-type";
+
+export async function getClimate(): Promise<climateType | null> {
+  const response = await fetch(process.env.OPEN_METEO_URL, {
     cache: "force-cache",
     next: {
       revalidate: 300,
@@ -7,10 +9,20 @@ export async function getClimate() {
     },
   });
 
-  if (!reponse.ok) {
-    return;
+  if (!response.ok) {
+    return null;
   }
 
-  const data = await reponse.json();
-  return { data };
+  const responseInJson = await response.json();
+
+  const formattedResponse = climateSchema.safeParse(responseInJson);
+
+  if (!formattedResponse.success) {
+    console.error("Failed to parse climate data:", formattedResponse.error);
+    return null;
+  }
+
+  const data = formattedResponse.data;
+
+  return data;
 }

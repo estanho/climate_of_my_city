@@ -1,8 +1,5 @@
-export function formatDate(
-  date: Date | string | undefined,
-  options: Intl.DateTimeFormatOptions
-) {
-  const validDate = date instanceof Date ? date : new Date(date || "");
+export function formatDate(date: Date, options: Intl.DateTimeFormatOptions) {
+  const validDate = new Date(date);
 
   const timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
 

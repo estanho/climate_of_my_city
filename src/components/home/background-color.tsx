@@ -1,14 +1,9 @@
 "use client";
 
+import { climateType } from "@/types/climate-type";
 import { useEffect, useState } from "react";
 
-export function BackgroundTransition({
-  sunrise,
-  sunset,
-}: {
-  sunrise: Date;
-  sunset: Date;
-}) {
+export function BackgroundTransition({ climate }: { climate: climateType }) {
   const [backgroundClass, setBackgroundClass] = useState("");
 
   // Converte horários ISO 8601 para minutos do dia
@@ -19,8 +14,8 @@ export function BackgroundTransition({
 
   // Calcula a classe de fundo
   const calculateBackgroundClass = (minutes: number) => {
-    const sunriseMinutes = parseTimeToMinutes(sunrise);
-    const sunsetMinutes = parseTimeToMinutes(sunset);
+    const sunriseMinutes = parseTimeToMinutes(climate.daily.sunrise[1]);
+    const sunsetMinutes = parseTimeToMinutes(climate.daily.sunset[1]);
 
     const sunriseStart = sunriseMinutes;
     const sunriseEnd = sunriseMinutes - 30;
@@ -49,7 +44,7 @@ export function BackgroundTransition({
     updateBackground();
     const interval = setInterval(updateBackground, 60000);
     return () => clearInterval(interval);
-  }, [sunrise, sunset]);
+  }, []);
 
   return (
     <div

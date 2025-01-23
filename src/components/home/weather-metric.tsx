@@ -1,3 +1,4 @@
+import { Skeleton } from "@/components/ui/skeleton";
 import { climateType } from "@/types/climate-type";
 import {
   CloudRainWindIcon,
@@ -57,7 +58,7 @@ export function WeatherMetric({ climate }: { climate: climateType }) {
       {metrics.map((metric, index) => (
         <div
           key={index}
-          className="flex flex-col items-center justify-center rounded-lg border-2 p-4 shadow-md transition-all hover:scale-105 hover:border-blue-500"
+          className="flex flex-col items-center justify-center rounded-lg border-2 border-white/10 bg-white/20 p-4 shadow-lg backdrop-blur-lg transition-all hover:scale-105 hover:border-blue-500"
         >
           <div className="flex items-center gap-2">
             <metric.icon className="h-6 w-6 text-blue-500" />
@@ -70,6 +71,19 @@ export function WeatherMetric({ climate }: { climate: climateType }) {
             {metric.label}
           </span>
         </div>
+      ))}
+    </div>
+  );
+}
+
+export function WeatherMetricSkeleton() {
+  return (
+    <div className="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+      {[0, 1, 2, 3, 4, 5].map((value) => (
+        <Skeleton
+          key={value}
+          className="flex h-[100px] flex-col rounded-lg border-white/20 bg-white/30 p-4 shadow-lg backdrop-blur-lg"
+        />
       ))}
     </div>
   );

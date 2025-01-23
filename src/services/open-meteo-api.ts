@@ -16,7 +16,7 @@ export async function getClimate(): Promise<climateType | null> {
     });
 
     if (!response.ok) {
-      console.error(`Erro na API: ${response.status}`);
+      console.log(`Erro na API: ${response.status}`);
       return null;
     }
 
@@ -24,16 +24,13 @@ export async function getClimate(): Promise<climateType | null> {
     const formattedResponse = climateSchema.safeParse(responseInJson);
 
     if (!formattedResponse.success) {
-      console.error(
-        "Erro ao formatar retorno da API.",
-        formattedResponse.error
-      );
+      console.log("Erro ao formatar retorno da API.", formattedResponse.error);
       return null;
     }
 
     return formattedResponse.data;
   } catch (error) {
-    console.error("Erro ao buscar dados do clima:", error);
+    console.log("Erro ao buscar dados do clima:", error);
     return null;
   }
 }

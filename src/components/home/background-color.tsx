@@ -29,7 +29,7 @@ export function BackgroundTransition({ climate }: { climate: climateType }) {
     } else if (minutes >= sunriseEnd && minutes < sunsetStart) {
       setBackgroundClass("bg-blue-400");
     } else {
-      setBackgroundClass("bg-gray-900");
+      setBackgroundClass("bg-gradient-to-br from-gray-700 to-gray-950");
     }
   };
 
@@ -47,8 +47,10 @@ export function BackgroundTransition({ climate }: { climate: climateType }) {
   }, []);
 
   return (
-    <div
-      className={`fixed -z-10 min-h-screen min-w-full ${backgroundClass}`}
-    ></div>
+    <div className={`fixed -z-10 min-h-screen min-w-full ${backgroundClass}`} />
   );
+}
+
+export function BackgroundDefault() {
+  return <div className="fixed -z-10 min-h-screen min-w-full bg-gray-900" />;
 }

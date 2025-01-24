@@ -1,5 +1,8 @@
+"use client";
+
 import { Skeleton } from "@/components/ui/skeleton";
 import { climateType } from "@/types/climate-type";
+import { motion } from "framer-motion";
 import {
   CloudRainWindIcon,
   DropletIcon,
@@ -56,21 +59,31 @@ export function WeatherMetric({ climate }: { climate: climateType }) {
   return (
     <div className="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
       {metrics.map((metric, index) => (
-        <div
+        <motion.div
           key={index}
-          className="flex flex-col items-center justify-center rounded-lg border-2 border-white/10 bg-white/20 p-4 shadow-lg backdrop-blur-lg transition-all hover:scale-105 hover:border-blue-500"
+          initial={{ opacity: 0, scale: 0 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{
+            duration: 0.5,
+            scale: { type: "spring", visualDuration: 1, bounce: 0.2 },
+          }}
         >
-          <div className="flex items-center gap-2">
-            <metric.icon className="h-6 w-6 text-blue-500" />
-            <span className="text-2xl font-bold sm:text-3xl">
-              {metric.value}
-              {metric.unit}
+          <div
+            key={index}
+            className="flex flex-col items-center justify-center rounded-lg border-2 border-white/10 bg-white/20 p-4 shadow-lg backdrop-blur-lg transition-all hover:scale-105 hover:border-blue-500"
+          >
+            <div className="flex items-center gap-2">
+              <metric.icon className="h-6 w-6 text-blue-500" />
+              <span className="text-2xl font-bold sm:text-3xl">
+                {metric.value}
+                {metric.unit}
+              </span>
+            </div>
+            <span className="mt-2 text-center text-sm text-muted-foreground">
+              {metric.label}
             </span>
           </div>
-          <span className="mt-2 text-center text-sm text-muted-foreground">
-            {metric.label}
-          </span>
-        </div>
+        </motion.div>
       ))}
     </div>
   );
